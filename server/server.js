@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const User = require('./models/User');
 const Note = require('./models/Note');
@@ -22,12 +23,12 @@ app.use(cors({
   credentials: true
 }));
 
-mongoose.connect('mongodb+srv://princeco10673_db_user:V3BW2Z9uv7gwJ1Df@cluster0.7qmpovd.mongodb.net/?appName=Cluster0', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-const JWT_SECRET = 'a8f3c9e7b2d14f6a9c5e8b1d3f7a2c6e4b9d0f1a7c3e5b2d8f6a1c9e4b7d3f2';
+const JWT_SECRET = process.env.JWT_SECRET;
 const stateManager = new StateManager(Note);
 const recommendationEngine = new RecommendationEngine(Note);
 
